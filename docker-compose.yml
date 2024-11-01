@@ -1,0 +1,29 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER= isax01
+      - POSTGRES_PASSWORD= isax01$
+      - POSTGRES_DB= badia_users_trip
+      - POSTGRES_DB_COMPANY_PREFIX= badia_trip_company_db_
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER= isax01
+      - POSTGRES_PASSWORD= isax01$
+      - POSTGRES_DB= badia_users_trip
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
